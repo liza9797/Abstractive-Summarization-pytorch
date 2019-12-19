@@ -7,8 +7,6 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 import config
 from numpy import random
 
-use_cuda = config.use_gpu and torch.cuda.is_available()
-
 random.seed(123)
 torch.manual_seed(123)
 if torch.cuda.is_available():
@@ -198,7 +196,7 @@ class Decoder(nn.Module):
         return final_dist, s_t, c_t, attn_dist, p_gen, coverage
 
 class Model(object):
-    def __init__(self, model_file_path=None, is_eval=False):
+    def __init__(self, model_file_path=None, is_eval=False, use_cuda=False):
         encoder = Encoder()
         decoder = Decoder()
         reduce_state = ReduceState()
